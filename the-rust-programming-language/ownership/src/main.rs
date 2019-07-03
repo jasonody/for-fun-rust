@@ -54,12 +54,24 @@ fn main() {
     let mut s8 = String::from("hey hey");
     let r7 = &s8; //OK (immutable reference--read only)
     let r8 = &s8; //OK (immutable reference--read only)
-    println!("{} {}", r7, r8); 
+    println!("{} {}", r7, r8);
     //r7 and r8 are not used again
     let r9 = &mut s8; //OK as scopes of r7 & r8 don't overlap with r9
     println!("r9:{}", r9);
     r9.push('9');
     //println!("r9:{}, s8:{}", r9, s8); //cannot borrow `s8` as immutable because it is also borrowed as mutable
+}
+
+//Dangling references
+// fn _dangle() -> &String { //returns a reference to a String
+//     let s = String::from("What's up?"); //s is a new String
+
+//     &s //return a reference to the String s
+// }// String s goes out of scope here and is dropped!
+fn _no_dangle() -> String { //solution is to return a String directly
+    let s = String::from("What's up?");
+
+    s //ownership is moved out and s is not dropped
 }
 
 fn takes_ownership(some_string: String) {
