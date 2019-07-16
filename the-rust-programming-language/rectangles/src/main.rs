@@ -6,6 +6,7 @@ struct Rectangle {
 
 //implementation block
 impl Rectangle {
+    //methods
     //area method defined on Rectangle instance
     fn area(&self) -> u32 { //reading (&self), mutating (&mut self), or consuming (self)*
         //* https://doc.rust-lang.org/book/ch05-03-method-syntax.html
@@ -14,6 +15,16 @@ impl Rectangle {
 
     fn can_hold(&self, other: &Rectangle) -> bool { //other: immutable borrow
         self.height > other.height && self.width > other.height
+    }
+
+    //associated functions
+    fn square(size: u32) -> Rectangle {
+        Rectangle { width: size, height: size}
+    }
+
+    //constructor
+    fn new(width: u32, height: u32) -> Rectangle {
+        Rectangle { width, height }
     }
 }
 
@@ -42,6 +53,9 @@ fn main() {
     };
 
     println!("can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+
+    let _my_square = Rectangle::square(3);
+    let _new_rect = Rectangle::new(30, 50);
 }
 
 fn area(rectangle: &Rectangle) -> u32 {
